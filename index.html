@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Flow</title>
+</head>
+<body>
+  <form id="auth-form">
+    <input type="email" id="email" name="email" placeholder="Email" required>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <button type="submit" id="submit">Submit</button>
+  </form>
+
+    <script>
+        const emailInput = document.querySelector('#email');
+        const submitButton = document.querySelector('#submit');
+
+        submitButton.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            try {
+                const response = await fetch('/sendUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        emailSubmit: emailInput.value,
+                    }),
+                });
+
+            } catch(error) {
+                console.error("POST failed", error);
+                alert("falhar ao enviar o e-mail. Tente novamente"); 
+
+            }
+        })
+    
+
+    </script>
+</body>
+</html>
