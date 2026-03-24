@@ -2,6 +2,7 @@ import express from 'express';
 import { createClient } from '@supabase/supabase-js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import bcrypt from 'bcrypt';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,12 +22,16 @@ export const supabase = createClient(supabaseUrl, supabaseKey);
 
 
 app.post('/sendUser', async (req,res) => {
-    const { emailSubmit } = req.body; 
+    const { emailSubmit, passwordSubmit } = req.body; 
 
     try {
 
+        const saltRounds = 10;
+        const hashedPasswrd = await bcrypt.hash(passwordSubmit, saltRounds)
+
         const { data, error } = await supabase.from('users').insert([{
             email: emailSubmit,
+            passwrd: hashedPasswrd,
 
         }]).select();
 

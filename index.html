@@ -15,6 +15,7 @@
     <script>
         const emailInput = document.querySelector('#email');
         const submitButton = document.querySelector('#submit');
+        const passwrd = document.querySelector('#password');
 
         submitButton.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -27,6 +28,7 @@
                     },
                     body: JSON.stringify({
                         emailSubmit: emailInput.value,
+                        passwordSubmit: passwrd.value,
                     }),
                 });
 
