@@ -51,6 +51,32 @@ app.post('/signup', async (req,res) => {
     }
 })
 
+app.post('/login', async (req,res) => {
+
+    const { email, passwrd } = req.body
+
+    try {
+        const { data, error } = await supabase.from('users').select('*').eq('email', email).single();
+        
+        if(error || !data) {
+            return res.status(401).json({error: 'Usuário não encontrado'});
+        }
+
+        const math = await bcrypt.compare(passwrd, data.passwrd)
+
+        if (!math) {
+            return res.status(401).json({error: 'Senha incorreta'});
+        }
+
+        res.json({success: true});
+
+    } catch(err){
+        console.error(err);
+        res.status(500).json({error: err.message})
+    }
+
+});
+
 //app.get('/connection', async (req,res) => {
 //    
 //    try {

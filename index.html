@@ -35,6 +35,14 @@
                     }),
                 });
 
+                const result = await response.json()
+
+                if(response.ok){
+                    window.location.href = '/home.html';
+                } else {
+                    alert(result.error || 'cadastro falhou')
+                }
+
             } catch(error) {
                 console.error("POST failed", error);
                 alert("falhar ao enviar o e-mail. Tente novamente"); 
