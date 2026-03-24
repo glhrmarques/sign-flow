@@ -13,5 +13,42 @@
       <button type="submit" id="submit">Login</button>
     </form>
     <a href="index.html">Don't have an account? Register</a>
+
+    <script>
+      const emailInput = document.querySelector("#email");
+      const passwrdInput = document.querySelector("#password");
+      const submitBtn = document.querySelector("#submit");
+
+      submitBtn.addEventListener('click', async (e) => {
+        e.preventDefault()
+
+        try {
+          const response = await fetch('/login', {
+            method: "POST",
+            headers: {'Content-Type': 'aplication/json'},
+            body: JSON.stringify({
+              email: emailInput.value,
+              passwrd: passwrdInput.value,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            window.location.href = '/home.html';
+          } else {
+            alert(result.error || 'login failed')
+          }
+
+        } catch(error) {
+          console.error("POST error", error);
+          alert("Falhar ao tentar logar");
+
+        };
+        
+
+      })
+
+    </script>
 </body>
 </html>

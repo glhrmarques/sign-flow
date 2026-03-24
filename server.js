@@ -21,7 +21,7 @@ const supabaseKey = 'sb_publishable_QFtAJo2r8Tb9MB-UCtVv6Q_4TvoSUjg';
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
 
-app.post('/sendUser', async (req,res) => {
+app.post('/signup', async (req,res) => {
     const { emailSubmit, passwordSubmit } = req.body; 
 
     try {
