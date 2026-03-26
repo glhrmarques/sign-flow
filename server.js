@@ -3,9 +3,11 @@ import { createClient } from '@supabase/supabase-js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
+import 'dotenv/config'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 
 const app = express();
@@ -15,8 +17,8 @@ app.use(express.json())
 app.use(express.static(__dirname));
 
 
-const supabaseUrl = 'https://oyjuenioidyokwdguhgy.supabase.co';
-const supabaseKey = 'sb_publishable_QFtAJo2r8Tb9MB-UCtVv6Q_4TvoSUjg';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
